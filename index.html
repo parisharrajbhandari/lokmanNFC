@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+
+    <!-- Google Fonts: Outfit for a modern, clean, premium look -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Background Image and Overlay -->
+    <div class="background"></div>
+    <div class="background-overlay"></div>
+
+    <!-- ========================================== -->
+    <!-- LOGO SECTION (Animates on scroll)          -->
+    <!-- ========================================== -->
+    <header class="header" id="header">
+        <img src="" alt="" class="logo" id="logo">
+        <div class="header-text-container" id="header-name">
+            <div class="header-name" id="person-name"></div>
+            <div class="header-title" id="person-title"></div>
+        </div>
+        <h1 class="company-name" id="company-name"></h1>
+    </header>
+
+    <main class="scroll-container">
+
+        <!-- ========================================== -->
+        <!-- INITIAL SCREEN (Hero)                      -->
+        <!-- ========================================== -->
+        <section class="hero" id="hero">
+            <div class="scroll-indicator" id="scroll-indicator">
+                <p>Scroll for more</p>
+                <div class="mouse">
+                    <div class="wheel"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- CONTENT SECTION (Revealed on scroll)       -->
+        <!-- ========================================== -->
+        <section class="card-content" id="card-content">
+
+            <!-- CONTACTS SECTION (Hidden initially, fades in on scroll) -->
+            <div class="contacts-section" id="contacts-section">
+                <!-- 1. SOCIAL MEDIA LINKS (populated by JS) -->
+                <div class="social-bar" id="social-bar"></div>
+
+                <!-- 2. ACTION BUTTONS (Grid) -->
+                <div class="action-grid">
+                    <a href="#" id="btn-call" class="btn">
+                        <i class="fas fa-phone"></i>
+                        <span>Call Now</span>
+                    </a>
+                    <a href="#" id="btn-whatsapp" target="_blank" class="btn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Us</span>
+                    </a>
+                    <a href="#" id="btn-email" class="btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="#" id="btn-location" target="_blank" class="btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Location</span>
+                    </a>
+                </div>
+
+                <!-- 3. ADDITIONAL ACTIONS -->
+                <a href="#" id="btn-review" target="_blank" class="btn btn-full">
+                    <i class="fas fa-star"></i>
+                    <span>Review Us</span>
+                </a>
+                <a href="#" id="btn-save-contact" class="btn btn-save">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Save Contact</span>
+                </a>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- ABOUT SECTION                              -->
+            <!-- ========================================== -->
+            <div class="about-section">
+                <h2 id="about-heading"></h2>
+                <p id="about-text"></p>
+            </div>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- POWERED BY TAPPO SECTION (Fixed Footer)    -->
+    <!-- ========================================== -->
+    <footer class="powered-by">
+        <p>Powered by</p>
+        <a href="https://tappo.tappoo.workers.dev" target="_blank" class="tappo-link" aria-label="Tappo Website">
+            <!-- Text fallback for logo -->
+            <span class="tappo-logo-text">TAPPO</span>
+        </a>
+    </footer>
+
+    <!-- Config must load BEFORE script.js -->
+    <script src="config.js"></script>
+    <!-- Custom JavaScript for animations -->
+    <script src="script.js"></script>
+</body>
+
+</html>
