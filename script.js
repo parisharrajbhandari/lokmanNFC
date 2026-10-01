@@ -103,26 +103,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     // vCARD DOWNLOAD (built from config)
     // ============================================================
+    // Pre-cache contact photo from image/logo.jpg as fallback if needed
+    let cachedContactPhoto = null;
+    const contactPhotoImg = new Image();
+    contactPhotoImg.crossOrigin = 'anonymous';
+    contactPhotoImg.src = (cfg.vcard && cfg.vcard.photoSrc) || 'image/logo.jpg';
+    contactPhotoImg.onload = () => {
+        try {
+            const canvas = document.createElement('canvas');
+            const size = 512;
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                ctx.drawImage(contactPhotoImg, 0, 0, size, size);
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                const commaIdx = dataUrl.indexOf(',');
+                if (commaIdx !== -1) {
+                    cachedContactPhoto = {
+                        data: dataUrl.substring(commaIdx + 1),
+                        type: 'JPEG'
+                    };
+                }
+            }
+        } catch (e) {
+            // Silently ignore if canvas is tainted in local file:// mode
+        }
+    };
+
+    function getContactPhoto() {
+        // 1. If configured in config.js and valid, use it
+        if (cfg.vcard && cfg.vcard.photoBase64 && cfg.vcard.photoBase64.trim().length > 100) {
+            const format = (cfg.vcard.photoFormat || 'JPEG').toUpperCase();
+            return {
+                data: cfg.vcard.photoBase64.trim(),
+                type: format
+            };
+        }
+
+        // 2. Pre-cached photo from image/logo.jpg
+        if (cachedContactPhoto) {
+            return cachedContactPhoto;
+        }
+
+        return null;
+    }
+
     const saveContactBtn = document.getElementById('btn-save-contact');
     if (saveContactBtn) {
         saveContactBtn.addEventListener('click', (e) => {
             e.preventDefault();
 
-            // Build social URL lines dynamically
-            const socialUrlLines = cfg.socials.map(s =>
-                `URL;type=${s.platform}:${s.url}`
-            ).join('\n');
-
-            const socialProfileLines = cfg.socials.map(s =>
-                `X-SOCIALPROFILE;type=${s.platform.toLowerCase()}:${s.url}`
-            ).join('\n');
-
-            // Build phone number lines dynamically (supports multiple numbers)
-            const phoneLines = cfg.contact.phones.map(p =>
-                `TEL;TYPE=${p.label.toUpperCase()},VOICE:${p.number}`
-            ).join('\n');
-
-            const vcardContent = [
+            const vcardLines = [
                 'BEGIN:VCARD',
                 'VERSION:3.0',
                 // Company name as the primary display name for the contact
@@ -130,18 +162,62 @@ document.addEventListener('DOMContentLoaded', () => {
                 `N:${cfg.company.name};;;;`,
                 `ORG:${cfg.company.name}`,
                 `TITLE:${cfg.person.fullName} - ${cfg.person.title}`,
-                `NOTE:${cfg.vcard.contactNote}`,
-                `PHOTO;ENCODING=b;TYPE=PNG:${cfg.vcard.photoBase64}`,
-                phoneLines,
-                `EMAIL;TYPE=PREF,INTERNET:${cfg.contact.email}`,
-                `URL;type=Location:${cfg.contact.locationUrl}`,
-                `URL;type=WhatsApp:https://wa.me/${cfg.contact.whatsapp}`,
-                socialUrlLines,
-                socialProfileLines,
-                `ADR;TYPE=WORK:;;${cfg.vcard.addressStreet};${cfg.vcard.addressCity};${cfg.vcard.addressState};;${cfg.vcard.addressCountry}`,
-                'END:VCARD',
-            ].join('\n');
+            ];
 
+            if (cfg.vcard && cfg.vcard.contactNote) {
+                vcardLines.push(`NOTE:${cfg.vcard.contactNote}`);
+            }
+
+            const photo = getContactPhoto();
+            if (photo && photo.data) {
+                vcardLines.push(`PHOTO;ENCODING=b;TYPE=${photo.type}:${photo.data}`);
+            }
+
+            // Build phone number lines dynamically (supports multiple numbers)
+            if (cfg.contact && cfg.contact.phones && cfg.contact.phones.length > 0) {
+                cfg.contact.phones.forEach(p => {
+                    if (p.number) {
+                        vcardLines.push(`TEL;TYPE=${(p.label || 'WORK').toUpperCase()},VOICE:${p.number}`);
+                    }
+                });
+            }
+
+            if (cfg.contact && cfg.contact.email && cfg.contact.email.trim()) {
+                vcardLines.push(`EMAIL;TYPE=PREF,INTERNET:${cfg.contact.email.trim()}`);
+            }
+
+            if (cfg.contact && cfg.contact.locationUrl) {
+                vcardLines.push(`URL;type=Location:${cfg.contact.locationUrl}`);
+            }
+
+            if (cfg.contact && cfg.contact.whatsapp) {
+                vcardLines.push(`URL;type=WhatsApp:https://wa.me/${cfg.contact.whatsapp}`);
+            }
+
+            // Build social URL lines dynamically
+            if (cfg.socials && cfg.socials.length > 0) {
+                cfg.socials.forEach(s => {
+                    if (s.url) {
+                        vcardLines.push(`URL;type=${s.platform}:${s.url}`);
+                        vcardLines.push(`X-SOCIALPROFILE;type=${s.platform.toLowerCase()}:${s.url}`);
+                    }
+                });
+            }
+
+            if (cfg.vcard) {
+                const street = cfg.vcard.addressStreet || '';
+                const city = cfg.vcard.addressCity || '';
+                const state = cfg.vcard.addressState || '';
+                const country = cfg.vcard.addressCountry || '';
+                if (street || city || state || country) {
+                    vcardLines.push(`ADR;TYPE=WORK:;;${street};${city};${state};;${country}`);
+                }
+            }
+
+            vcardLines.push('END:VCARD');
+            vcardLines.push('');
+
+            const vcardContent = vcardLines.join('\r\n');
             const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8' });
             const url = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
@@ -152,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.removeChild(link);
 
             // Clean up
-            setTimeout(() => window.URL.revokeObjectURL(url), 100);
+            setTimeout(() => window.URL.revokeObjectURL(url), 1000);
         });
     }
 });
