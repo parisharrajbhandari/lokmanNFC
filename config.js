@@ -8,30 +8,31 @@ const BUSINESS_CONFIG = {
 
     // --- Personal Details ---
     person: {
-        firstName: "Bimish",
+        firstName: "Gayendra",
         middleName: "Man",
         lastName: "Shakya",
-        fullName: "Mr. BimishMan Shakya",       // Displayed in header & vCard
+        fullName: "Mr. Gayendra Man Shakya",       // Displayed in header & vCard
         title: "Proprietor",              // Job title / designation
     },
 
     // --- Company Details ---
     company: {
-        name: "Lokman and Sons",    // Displayed in header & page title
-        tagline: "Gold made since 1961",               // Used in the page <title>
-        aboutHeading: "New Chandraman And Sons",     // Heading for the about section
-        aboutText: `Our shop has given serive since 1961 where sell all kinds of Gold, Silver and Diamond Jewellery. We take custom orders and designs. Be confident to buy from us.`,
+        name: "New lokman and sons gold and silver ornament shop",    // Displayed in header & page title
+        tagline: "Jewelery Of All Kinds",               // Used in the page <title>
+        aboutHeading: "Lokman and Sons",     // Heading for the about section
+        aboutText: `Best Jewelery Shop in town. We provide all kinds of Gold, Silver and Diamond Jewellery. We take custom orders and designs. Be confident to buy from us.`,
     },
 
     // --- Contact Details ---
     contact: {
         phones: [
-            { number: "+9779841819642", label: "Work" },
+            { number: "+9779812222222", label: "Work" },
+            { number: "+9779802918555", label: "Work" }
         ],
-        whatsapp: "9779841819642",            // WhatsApp number (without +)
-        email: "shakya418@hotmail.com",
-        locationUrl: "https://maps.app.goo.gl/zFihrFUhgGqEjgA88",
-        reviewUrl: "https://www.google.com/maps/place/New+Chandraman+and+sons/@27.6958468,84.4255943,17.75z/data=!4m6!3m5!1s0x3994fb9beee44863:0x80040679721f6db0!8m2!3d27.6973649!4d84.4256387!16s%2Fg%2F11zysl1gpm?entry=ttu&g_ep=EgoyMDI2MDkxNi4wIKXMDSoASAFQAw%3D%3D",
+        whatsapp: "9779812222222",            // WhatsApp number (without +)
+        email: "",
+        locationUrl: "https://maps.app.goo.gl/PgMN8K5cvGgA8ysr6?g_st=ac",
+        reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJTXxupjj7lDkRWMFlzUxX-9o",
     },
 
     // --- Social Media Links ---
@@ -40,37 +41,37 @@ const BUSINESS_CONFIG = {
     socials: [
         {
             platform: "Instagram",
-            url: "https://www.instagram.com/chandramanandsons?stkn=Ynd6YndwOHJjMmZm",
+            url: "https://www.instagram.com/new_lokman_sons?stkn=MTF6cHYzZnNwOW51ZQ==",
             icon: "fab fa-instagram",
         },
         {
             platform: "TikTok",
-            url: "https://www.tiktok.com/@newchandramanandsons?_r=1&_t=ZS-99wKiXirPmP",
+            url: "https://www.tiktok.com/@newlokmanandsons1?_r=1&_t=ZS-9A4pc3Wj2ij",
             icon: "fab fa-tiktok",
         },
         {
             platform: "Facebook",
-            url: "https://www.facebook.com/share/19XbVYLCjv/",
+            url: "https://www.facebook.com/share/1CC4UvHWyG/",
             icon: "fab fa-facebook-f",
         },
         {
             platform: "website",
-            url: "https://newchandramanandsons.tappoo.workers.dev/",
+            url: "https://lokman.tappoo.workers.dev/",
         },
     ],
 
     // --- Logo ---
     logo: {
-        src: "image/new_chandraman_logo.png",
-        alt: "New Chandraman and Sons logo",
+        src: "image/logo.png",
+        alt: "Lokman logo",
     },
 
     // --- vCard / Address Details ---
     vcard: {
         // This note will be saved with the contact on the device.
         // Customize it to include any info you want the recipient to see.
-        contactNote: "New Chandraman and Sons - Gold, Silver & Diamond Jewellery since 1961. Contact: Bimish man Shakya (Manager)",
-        addressStreet: "New Channdraman and Sons",
+        contactNote: "Best Jewelery Shop in town. We provide all kinds of Gold, Silver and Diamond Jewellery. We take custom orders and designs. Be confident to buy from us.",
+        addressStreet: "New Lokman and Sons Gold & Silver Shop",
         addressCity: "Chitwan",
         addressState: "Bagmati",
         addressCountry: "Nepal",
