@@ -107,7 +107,7 @@ html {
     letter-spacing: 1px;
     text-transform: uppercase;
     /* color: var(--text-color); */
-    color: white;
+    color: gold;
     transition: font-size 0.4s ease;
 }
 
@@ -201,7 +201,7 @@ html {
     text-align: center;
     text-transform: uppercase;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
-    color: white;
+    color: gold;
     transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;

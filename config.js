@@ -54,15 +54,11 @@ const BUSINESS_CONFIG = {
             url: "https://www.facebook.com/share/1CC4UvHWyG/",
             icon: "fab fa-facebook-f",
         },
-        {
-            platform: "website",
-            url: "https://lokman.tappoo.workers.dev/",
-        },
     ],
 
     // --- Logo ---
     logo: {
-        src: "image/logo.png",
+        src: "image/logo.jpg",
         alt: "Lokman logo",
     },
 
