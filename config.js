@@ -58,7 +58,7 @@ const BUSINESS_CONFIG = {
 
     // --- Logo ---
     logo: {
-        src: "image/logo.jpg",
+        src: "image/logo.png",
         alt: "Lokman logo",
     },
 
